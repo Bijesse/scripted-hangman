@@ -76,11 +76,11 @@ After all this is done, you should be left with the following items:
  - User interface
    - Draw hangman
    - Draw word
-- Data
+ - Data
    - Correct guesses
    - Wrong guesses
    - Secret word
-- Events
+ - Events
    - On key press
    - On correct guess
    - On wrong guess
