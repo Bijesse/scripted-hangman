@@ -64,12 +64,18 @@ function updateHangman() {
   $("#hangman").attr("src", images[misses]);
 }
 
+// ## Determining wins/losses ##
+
+// A player has won if they guess every letter in the word. Uses Array.every()
+// that is supported in IE9 and later. Read as "if guesses includes every letter
+// in the word"
 function hasWon() {
   return word.every(function (letter) {
     return guesses.includes(letter);
   });
 }
 
+// A player has lost if they have more than 6 misses.
 function hasLost() {
   if (misses < 6) {
     return false;
