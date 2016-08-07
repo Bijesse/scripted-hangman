@@ -125,20 +125,31 @@ function newGame() {
   updateHangman();
 }
 
+// ## Initialization ##
+
+// Wrap in a document.ready...
 $(document).ready(function() {
+  //Call new game to initialize state. Technically not needed...
   newGame();
 
+  // Add the click handler for a new game.
   $("#newgame").click(newGame);
 
+  // Add the keypress handler.
   $(document).keypress(function(event) {
+    // Clear the message on each guess.
     $("#message").empty();
     $("#message").hide();
 
+    // Guess the letter. Probably worth introducing students to the event.key
+    // property by printing it to the console as an example.
     guessLetter(event.key);
 
+    // Update the word and hangman on the screen.
     updateWord();
     updateHangman();
 
+    // Handle wins and losses.
     if (hasWon()) {
       $("#message").text("You won!");
       $("#message").show();
