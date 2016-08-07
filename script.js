@@ -1,31 +1,27 @@
+var word = ['A','B','A','L','O','N','E'];
+var images = ['Hangman-0.png', 'Hangman-1.png', 'Hangman-2.png', 'Hangman-3.png', 'Hangman-4.png', 'Hangman-5.png', 'Hangman-6.png'];
 var guesses = [];
 var misses = 0;
-var word = "ABALONE";
 
 function updateWord() {
   $("#word").empty();
-  for (var i = 0; i < word.length; i++) {
-    var letter = word.charAt(i);
+  word.forEach(function (letter) {
     if (guesses.includes(letter)) {
       $("#word").append(letter);
     } else {
       $("#word").append("_");
     }
-  }
+  });
 }
 
 function updateHangman() {
-  $("#hangman").attr("src", "Hangman-" + misses + ".png");
+  $("#hangman").attr("src", images[misses]);
 }
 
 function hasWon() {
-  for(var i = 0; i < word.length; i++) {
-    var letter = word.charAt(i);
-    if (guesses.includes(letter) === false) {
-      return false;
-    }
-  }
-  return true;
+  return word.every(function (letter) {
+    return guesses.includes(letter);
+  });
 }
 
 function hasLost() {
