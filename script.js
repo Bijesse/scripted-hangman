@@ -1,11 +1,55 @@
+// # Hangman Project #
+
+// ## Global Variables ##
+
+// We choose to represent the word as an array of characters. We could have
+// represented it as a string, but an array of characters is more suited to our
+// specific use case. This is a great way to introduce the concept of data
+// representation. Ask the students "How many different ways could we represent
+// a word?" A string, an array of strings, an array of characters, an array of
+// numbers representing characters, etc. Talk through the pros and cons of each.
 var word = ['A','B','A','L','O','N','E'];
-var images = ['Hangman-0.png', 'Hangman-1.png', 'Hangman-2.png', 'Hangman-3.png', 'Hangman-4.png', 'Hangman-5.png', 'Hangman-6.png'];
+
+// Similar to the dice game, we choose to represent the different possible
+// hangman images as an array of strings to the URLs. Talk to students about the
+// challenge we are trying to solve. "How do we turn a number of misses into an
+// image?" An alternative way to solve this would be to concatenate strings with
+// the number of misses to produce the URL.
+var images = ['Hangman-0.png', 'Hangman-1.png', 'Hangman-2.png',
+              'Hangman-3.png', 'Hangman-4.png', 'Hangman-5.png',
+              'Hangman-6.png'];
+
+// A key decision is how to store the player's progress in the game. We choose
+// to represent it as an array of the letters guessed. Walk through a game of
+// hangman with the students and have them narrate each step. Ask the game
+// leader questions at each step. "How do you know if the player won?"
+// or "How do you know if the player lost?"
 var guesses = [];
+
+// While you could infer the number of misses from the array of guesses, it is
+// easier to keep it in an array. Alternatively, you could keep two arrays: a
+// "correct" array and a "wrong" array.
 var misses = 0;
 
+// ## Update functions ##
+
+// Updating the word maybe the most difficult part of the assignment.
+// Conceptually, you clear what is in the div, iterate over each letter, and add
+// either the letter or an underscore depending on if the player guessed the
+// letter.
 function updateWord() {
+  // Empty the div. It is important to recognize this is just emptying what is
+  // on the screen. The answer is still there.
   $("#word").empty();
+
+  // Iterate over each letter in the word using forEach. This could also be
+  // done using a for loop, but forEach removes the complexities around indexes.
+  // Read as "for each letter in the word..."
   word.forEach(function (letter) {
+    // Check if the guesses array includes the given letter. Array.includes() is
+    // not supported in IE yet. An alternative would be Array.indexOf().
+    // Read as: "if the letter is in the list of guesses..." If guessed already,
+    // append the actual letter. Otherwise, append a placeholder.
     if (guesses.includes(letter)) {
       $("#word").append(letter);
     } else {
@@ -14,16 +58,24 @@ function updateWord() {
   });
 }
 
+// Update the hangman by setting the image src to appropriate image URL based
+// on the number of misses.
 function updateHangman() {
   $("#hangman").attr("src", images[misses]);
 }
 
+// ## Determining wins/losses ##
+
+// A player has won if they guess every letter in the word. Uses Array.every()
+// that is supported in IE9 and later. Read as "if guesses includes every letter
+// in the word"
 function hasWon() {
   return word.every(function (letter) {
     return guesses.includes(letter);
   });
 }
 
+// A player has lost if they have more than 6 misses.
 function hasLost() {
   if (misses < 6) {
     return false;
@@ -32,22 +84,38 @@ function hasLost() {
   }
 }
 
+// ## Guessing letters ##
+
+// Guessing letters involves updating the two state variables - guesses and
+// misses. This function also checks if a letter has been guessed, but that is
+// not strictly necessary.
 function guessLetter(letter) {
+  // Convert the letter to uppercase. This is important for the Array.includes()
+  // to work.
   letter = letter.toUpperCase();
 
+  // Check if the letter has been guessed. This can be done as a challenge after
+  // completing the project.
   if (guesses.includes(letter)) {
+    //Display a message. This could be an alert box to begin with.
     $("#message").text("You already guessed the letter '" + letter + "'!");
     $("#message").show();
     return;
   }
 
+  // Add the letter to the guesses.
   guesses.push(letter);
 
+  // If the letter is not in the word, add one to misses.
   if (word.includes(letter) === false) {
     misses++;
   }
 }
 
+// ## New Game ##
+
+// Start a new game by resetting the state, hiding the messages, and updating
+// the hangman and word.
 function newGame() {
   guesses = [];
   misses = 0;
@@ -57,20 +125,31 @@ function newGame() {
   updateHangman();
 }
 
+// ## Initialization ##
+
+// Wrap in a document.ready...
 $(document).ready(function() {
+  //Call new game to initialize state. Technically not needed...
   newGame();
 
+  // Add the click handler for a new game.
   $("#newgame").click(newGame);
 
+  // Add the keypress handler.
   $(document).keypress(function(event) {
+    // Clear the message on each guess.
     $("#message").empty();
     $("#message").hide();
 
+    // Guess the letter. Probably worth introducing students to the event.key
+    // property by printing it to the console as an example.
     guessLetter(event.key);
 
+    // Update the word and hangman on the screen.
     updateWord();
     updateHangman();
 
+    // Handle wins and losses.
     if (hasWon()) {
       $("#message").text("You won!");
       $("#message").show();

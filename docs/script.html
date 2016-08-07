@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>Hangman Project</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+  <link rel="stylesheet" media="all" href="docco.css" />
+</head>
+<body>
+  <div id="container">
+    <div id="background"></div>
+    
+    <ul class="sections">
+        
+        
+        
+        <li id="section-1">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-1">&#182;</a>
+              </div>
+              <h1 id="hangman-project">Hangman Project</h1>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-2">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-2">&#182;</a>
+              </div>
+              <h2 id="global-variables">Global Variables</h2>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-3">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-3">&#182;</a>
+              </div>
+              <p>We choose to represent the word as an array of characters. We could have
+represented it as a string, but an array of characters is more suited to our
+specific use case. This is a great way to introduce the concept of data
+representation. Ask the students “How many different ways could we represent
+a word?” A string, an array of strings, an array of characters, an array of
+numbers representing characters, etc. Talk through the pros and cons of each.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">var</span> word = [<span class="hljs-string">'A'</span>,<span class="hljs-string">'B'</span>,<span class="hljs-string">'A'</span>,<span class="hljs-string">'L'</span>,<span class="hljs-string">'O'</span>,<span class="hljs-string">'N'</span>,<span class="hljs-string">'E'</span>];</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-4">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-4">&#182;</a>
+              </div>
+              <p>Similar to the dice game, we choose to represent the different possible
+hangman images as an array of strings to the URLs. Talk to students about the
+challenge we are trying to solve. “How do we turn a number of misses into an
+image?” An alternative way to solve this would be to concatenate strings with
+the number of misses to produce the URL.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">var</span> images = [<span class="hljs-string">'Hangman-0.png'</span>, <span class="hljs-string">'Hangman-1.png'</span>, <span class="hljs-string">'Hangman-2.png'</span>,
+              <span class="hljs-string">'Hangman-3.png'</span>, <span class="hljs-string">'Hangman-4.png'</span>, <span class="hljs-string">'Hangman-5.png'</span>,
+              <span class="hljs-string">'Hangman-6.png'</span>];</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-5">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-5">&#182;</a>
+              </div>
+              <p>A key decision is how to store the player’s progress in the game. We choose
+to represent it as an array of the letters guessed. Walk through a game of
+hangman with the students and have them narrate each step. Ask the game
+leader questions at each step. “How do you know if the player won?”
+or “How do you know if the player lost?”</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">var</span> guesses = [];</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-6">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-6">&#182;</a>
+              </div>
+              <p>While you could infer the number of misses from the array of guesses, it is
+easier to keep it in an array. Alternatively, you could keep two arrays: a
+“correct” array and a “wrong” array.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">var</span> misses = <span class="hljs-number">0</span>;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-7">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-7">&#182;</a>
+              </div>
+              <h2 id="update-functions">Update functions</h2>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-8">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-8">&#182;</a>
+              </div>
+              <p>Updating the word maybe the most difficult part of the assignment.
+Conceptually, you clear what is in the div, iterate over each letter, and add
+either the letter or an underscore depending on if the player guessed the
+letter.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">updateWord</span>(<span class="hljs-params"></span>) </span>{</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-9">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-9">&#182;</a>
+              </div>
+              <p>Empty the div. It is important to recognize this is just emptying what is
+on the screen. The answer is still there.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  $(<span class="hljs-string">"#word"</span>).empty();</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-10">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-10">&#182;</a>
+              </div>
+              <p>Iterate over each letter in the word using forEach. This could also be
+done using a for loop, but forEach removes the complexities around indexes.
+Read as “for each letter in the word…”</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  word.forEach(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">letter</span>) </span>{</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-11">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-11">&#182;</a>
+              </div>
+              <p>Check if the guesses array includes the given letter. Array.includes() is
+not supported in IE yet. An alternative would be Array.indexOf().
+Read as: “if the letter is in the list of guesses…” If guessed already,
+append the actual letter. Otherwise, append a placeholder.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">if</span> (guesses.includes(letter)) {
+      $(<span class="hljs-string">"#word"</span>).append(letter);
+    } <span class="hljs-keyword">else</span> {
+      $(<span class="hljs-string">"#word"</span>).append(<span class="hljs-string">"_"</span>);
+    }
+  });
+}</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-12">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-12">&#182;</a>
+              </div>
+              <p>Update the hangman by setting the image src to appropriate image URL based
+on the number of misses.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">updateHangman</span>(<span class="hljs-params"></span>) </span>{
+  $(<span class="hljs-string">"#hangman"</span>).attr(<span class="hljs-string">"src"</span>, images[misses]);
+}</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-13">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-13">&#182;</a>
+              </div>
+              <h2 id="determining-wins-losses">Determining wins/losses</h2>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-14">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-14">&#182;</a>
+              </div>
+              <p>A player has won if they guess every letter in the word. Uses Array.every()
+that is supported in IE9 and later. Read as “if guesses includes every letter
+in the word”</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">hasWon</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">return</span> word.every(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">letter</span>) </span>{
+    <span class="hljs-keyword">return</span> guesses.includes(letter);
+  });
+}</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-15">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-15">&#182;</a>
+              </div>
+              <p>A player has lost if they have more than 6 misses.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">hasLost</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">if</span> (misses &lt; <span class="hljs-number">6</span>) {
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+  } <span class="hljs-keyword">else</span> {
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+  }
+}</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-16">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-16">&#182;</a>
+              </div>
+              <h2 id="guessing-letters">Guessing letters</h2>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-17">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-17">&#182;</a>
+              </div>
+              <p>Guessing letters involves updating the two state variables - guesses and
+misses. This function also checks if a letter has been guessed, but that is
+not strictly necessary.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">guessLetter</span>(<span class="hljs-params">letter</span>) </span>{</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-18">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-18">&#182;</a>
+              </div>
+              <p>Convert the letter to uppercase. This is important for the Array.includes()
+to work.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  letter = letter.toUpperCase();</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-19">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-19">&#182;</a>
+              </div>
+              <p>Check if the letter has been guessed. This can be done as a challenge after
+completing the project.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-keyword">if</span> (guesses.includes(letter)) {</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-20">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-20">&#182;</a>
+              </div>
+              <p>Display a message. This could be an alert box to begin with.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    $(<span class="hljs-string">"#message"</span>).text(<span class="hljs-string">"You already guessed the letter '"</span> + letter + <span class="hljs-string">"'!"</span>);
+    $(<span class="hljs-string">"#message"</span>).show();
+    <span class="hljs-keyword">return</span>;
+  }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-21">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-21">&#182;</a>
+              </div>
+              <p>Add the letter to the guesses.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  guesses.push(letter);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-22">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-22">&#182;</a>
+              </div>
+              <p>If the letter is not in the word, add one to misses.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-keyword">if</span> (word.includes(letter) === <span class="hljs-literal">false</span>) {
+    misses++;
+  }
+}</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-23">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-23">&#182;</a>
+              </div>
+              <h2 id="new-game">New Game</h2>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-24">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-24">&#182;</a>
+              </div>
+              <p>Start a new game by resetting the state, hiding the messages, and updating
+the hangman and word.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">newGame</span>(<span class="hljs-params"></span>) </span>{
+  guesses = [];
+  misses = <span class="hljs-number">0</span>;
+  $(<span class="hljs-string">"#message"</span>).hide();
+  $(<span class="hljs-string">"#newgame"</span>).hide();
+  updateWord();
+  updateHangman();
+}</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-25">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-25">&#182;</a>
+              </div>
+              <h2 id="initialization">Initialization</h2>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-26">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-26">&#182;</a>
+              </div>
+              <p>Wrap in a document.ready…</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>$(<span class="hljs-built_in">document</span>).ready(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-27">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-27">&#182;</a>
+              </div>
+              <p>Call new game to initialize state. Technically not needed…</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  newGame();</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-28">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-28">&#182;</a>
+              </div>
+              <p>Add the click handler for a new game.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  $(<span class="hljs-string">"#newgame"</span>).click(newGame);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-29">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-29">&#182;</a>
+              </div>
+              <p>Add the keypress handler.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  $(<span class="hljs-built_in">document</span>).keypress(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">event</span>) </span>{</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-30">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-30">&#182;</a>
+              </div>
+              <p>Clear the message on each guess.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    $(<span class="hljs-string">"#message"</span>).empty();
+    $(<span class="hljs-string">"#message"</span>).hide();</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-31">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-31">&#182;</a>
+              </div>
+              <p>Guess the letter. Probably worth introducing students to the event.key
+property by printing it to the console as an example.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    guessLetter(event.key);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-32">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-32">&#182;</a>
+              </div>
+              <p>Update the word and hangman on the screen.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    updateWord();
+    updateHangman();</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-33">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-33">&#182;</a>
+              </div>
+              <p>Handle wins and losses.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">if</span> (hasWon()) {
+      $(<span class="hljs-string">"#message"</span>).text(<span class="hljs-string">"You won!"</span>);
+      $(<span class="hljs-string">"#message"</span>).show();
+      $(<span class="hljs-string">"#newgame"</span>).show();
+    }
+    <span class="hljs-keyword">if</span> (hasLost()) {
+      $(<span class="hljs-string">"#message"</span>).text(<span class="hljs-string">"You lost!"</span>);
+      $(<span class="hljs-string">"#message"</span>).show();
+      $(<span class="hljs-string">"#newgame"</span>).show();
+    }
+  });
+});</pre></div></div>
+            
+        </li>
+        
+    </ul>
+  </div>
+</body>
+</html>
