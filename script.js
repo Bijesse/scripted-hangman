@@ -31,9 +31,25 @@ var guesses = [];
 // "correct" array and a "wrong" array.
 var misses = 0;
 
+// ## Update functions ##
+
+// Updating the word maybe the most difficult part of the assignment.
+// Conceptually, you clear what is in the div, iterate over each letter, and add
+// either the letter or an underscore depending on if the player guessed the
+// letter.
 function updateWord() {
+  // Empty the div. It is important to recognize this is just emptying what is
+  // on the screen. The answer is still there.
   $("#word").empty();
+
+  // Iterate over each letter in the word using forEach. This could also be
+  // done using a for loop, but forEach removes the complexities around indexes.
+  // Read as "for each letter in the word..."
   word.forEach(function (letter) {
+    // Check if the guesses array includes the given letter. Array.includes() is
+    // not supported in IE yet. An alternative would be Array.indexOf().
+    // Read as: "if the letter is in the list of guesses..." If guessed already,
+    // append the actual letter. Otherwise, append a placeholder.
     if (guesses.includes(letter)) {
       $("#word").append(letter);
     } else {
@@ -42,6 +58,8 @@ function updateWord() {
   });
 }
 
+// Update the hangman by setting the image src to appropriate image URL based
+// on the number of misses.
 function updateHangman() {
   $("#hangman").attr("src", images[misses]);
 }
