@@ -112,6 +112,10 @@ function guessLetter(letter) {
   }
 }
 
+// ## New Game ##
+
+// Start a new game by resetting the state, hiding the messages, and updating
+// the hangman and word.
 function newGame() {
   guesses = [];
   misses = 0;
