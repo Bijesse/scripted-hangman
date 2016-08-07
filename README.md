@@ -4,13 +4,13 @@ A basic hangman coding exercise.
 ## Guided Game ##
 To begin the project, choose two students to play a game of hangman. One student
 will play the "computer" and the other student will be the "player". On the
-board, make four categories: "data", "events", "game actions", "user interface".
-
-Explain each category:
+board, make five categories and explain each category:
  - *Data*: Information the computer needs to keep track of during the game.
- - *Events*: Things that happen during the game.
- - *Game Actions*: Things the computer does during the game.
- - *User Interface Actions*: Things that computer must "show" the user.
+ - *Game Actions*: Things the computer must do during the game.
+ - *Game Events*: Things that happen in the game.
+ - *User Interface Actions*: Things that computer must "show" the user during
+   game.
+ - *User Interface Events*: Things that happen in the user interface.
 If the students are a bit confused, it's okay - the game will help explain.
 
 Ask the "computer" student to begin. When she begins, make sure you explicitly
@@ -78,25 +78,28 @@ After all this is done, you should be left with the following items:
    - Judge guess
    - Check if won
    - Check if lost
- - User Interface Actions
-   - Draw hangman
-   - Draw word
- - Data
-   - Correct guesses
-   - Wrong guesses
-   - Secret word
- - Events
-   - On key press
+ - Game Events
    - On correct guess
    - On wrong guess
    - On win
    - On loss
+ - User Interface Actions
+   - Draw hangman
+   - Draw word
+ - User Interface Events
+   - On key press
+ - Data
+   - Correct guesses
+   - Wrong guesses
+   - Secret word
 
-## Diagram the list items
+
+## Flow Diagram
+Lead the students to a flow diagram that looks something like below:
 <pre>
                  +-------------+
 +------------+   | Draw Word   |
-|Prepare Game| ->|             |
+|Prepare Game| ->|-------------|
 +------------+   | Draw Hangman|
                  |+------------+
 
@@ -107,4 +110,54 @@ After all this is done, you should be left with the following items:
 +------------+  +-----------+ \   +----------------+  +----------+    +------------+       +------+
                                \->|On Correct Guess|->| Draw Word|--->|Check if Won|--Yes->|On Win|
                                   +----------------+  +----------+    +------------+       +------+
-</pre>      
+</pre>
+
+## Toolkit
+Introduce the students to their toolkit:
+ - Array.length
+ - Array.push()
+ - Array.every()
+ - Array.forEach()
+ - Array.includes()
+ - String.toUpperCase()
+ - Keypress event
+
+## Implementation Guide
+The implementation guide basically follows the flow diagram implementing from
+left to right.
+ - Implement prepareGame
+    - Define secretWordArray global variable
+    - Initialize the secret word array.
+    - Call from $(document).ready
+ - Implement first version of drawWord
+    - For now, just write placeholders (forEach / append)
+    - Call from prepareGame
+ - Implement first version of drawHangman
+    - Define global variable for array of hangman images
+    - For now, just set the image source to the first element.
+    - Call from prepareGame
+ - Implement onKeyPress
+    - Append listener in $(document).ready
+    - Use event.key
+ - Implement judgeGuess / onCorrectGuess / onWrongGuess
+    - Use Array.includes
+    - Call from onKeyPress
+    - Implement onCorrectGuess and onWrongGuess stubbed with an alert box
+ - Implement correctGuesses / wrongGuesses
+    - Define correctGuesses / wrongGuesses global variables.
+    - Initialize to guess arrays as empty arrays in prepareGame.
+    - Append letter to appropriate array in onCorrectGuess / onWrongGuess
+ - Implement second version of drawWord
+    - Append either the letter or a placeholder depending on correctGuesses
+      (Array.includes)
+ - Implement second version of drawHangman
+    - Set the correct image based on the count of wrongGuesses (Array.length)
+ - Implement onWin / onLoss
+    - Notify the user of win and loss (alert box or console log)
+ - Implement checkIfLost
+    - Return true if the count of wrongGuesses is larger than 6
+    - Call from onWrongGuess (and call onLoss if lost)
+ - Implement checkIfWon
+    - Return true if every letter in secret word are included in correctGuesses
+      (Array.every / Array.includes)
+    - Call from onCorrectGuess (and call onWin if won)
