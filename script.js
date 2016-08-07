@@ -84,17 +84,29 @@ function hasLost() {
   }
 }
 
+// ## Guessing letters ##
+
+// Guessing letters involves updating the two state variables - guesses and
+// misses. This function also checks if a letter has been guessed, but that is
+// not strictly necessary.
 function guessLetter(letter) {
+  // Convert the letter to uppercase. This is important for the Array.includes()
+  // to work.
   letter = letter.toUpperCase();
 
+  // Check if the letter has been guessed. This can be done as a challenge after
+  // completing the project.
   if (guesses.includes(letter)) {
+    //Display a message. This could be an alert box to begin with.
     $("#message").text("You already guessed the letter '" + letter + "'!");
     $("#message").show();
     return;
   }
 
+  // Add the letter to the guesses.
   guesses.push(letter);
 
+  // If the letter is not in the word, add one to misses.
   if (word.includes(letter) === false) {
     misses++;
   }
