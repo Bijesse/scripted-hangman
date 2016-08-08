@@ -18,7 +18,7 @@ function drawHangman() {
 }
 
 
-function onKeyPress(event) {
+function onKeyDown(event) {
   var letter = event.key;
   letter = letter.toUpperCase();
   alert("You guessed " + letter + "!");
@@ -26,5 +26,5 @@ function onKeyPress(event) {
 
 $(document).ready(function() {
   prepareGame();
-  $(document).keypress(onKeyPress);
+  $(document).keydown(onKeyDown);
 });

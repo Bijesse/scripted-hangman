@@ -37,7 +37,7 @@ note the following things on the first guess:
    the "computer" knows what letter she guessed. She may answer "I heard her say
    it!". Remind the students that computers can't hear... so how would you do it
    on a computer? Lead students to pressing the letter on the keyboard. Add
-   "on key press" to the list of events.
+   "on key down" to the list of events.
  - *Judging the guess*: Now that you know the letter, ask what the "computer"
    does next. Point out there are two different actions: if the guess is wrong,
    and if the guess is right. Add "on guess correct" and "on guess wrong" to the
@@ -87,7 +87,7 @@ After all this is done, you should be left with the following items:
    - Draw hangman
    - Draw word
  - User Interface Events
-   - On key press
+   - On key down
  - Data
    - Correct guesses
    - Wrong guesses
@@ -103,13 +103,13 @@ Lead the students to a flow diagram that looks something like below:
 +------------+   | Draw Hangman|
                  |+------------+
 
-                                  +--------------+    +------------+  +-------------+      +-------+
-                               /->|On Wrong Guess|--->|Draw Hangman|->|Check if Lost|-Yes->|On Loss|
-+------------+  +-----------+ /   +--------------+    +------------+  +-------------+      +-------+
-|On Key Press|->|Judge Guess|     
-+------------+  +-----------+ \   +----------------+  +----------+    +------------+       +------+
-                               \->|On Correct Guess|->| Draw Word|--->|Check if Won|--Yes->|On Win|
-                                  +----------------+  +----------+    +------------+       +------+
+                                 +--------------+    +------------+  +-------------+      +-------+
+                              /->|On Wrong Guess|--->|Draw Hangman|->|Check if Lost|-Yes->|On Loss|
++-----------+  +-----------+ /   +--------------+    +------------+  +-------------+      +-------+
+|On Key Down|->|Judge Guess|     
++-----------+  +-----------+ \   +----------------+  +----------+    +------------+       +------+
+                              \->|On Correct Guess|->| Draw Word|--->|Check if Won|--Yes->|On Win|
+                                 +----------------+  +----------+    +------------+       +------+
 </pre>
 
 ## Toolkit
@@ -120,7 +120,7 @@ Introduce the students to their toolkit:
  - Array.forEach()
  - Array.includes()
  - String.toUpperCase()
- - Keypress event
+ - Keydown event
 
 ## Implementation Guide
 The implementation guide basically follows the flow diagram implementing from
@@ -136,12 +136,12 @@ left to right.
     - Define global variable for array of hangman images
     - For now, just set the image source to the first element.
     - Call from prepareGame
- - Implement onKeyPress
+ - Implement onKeyDown
     - Append listener in $(document).ready
     - Use event.key
  - Implement judgeGuess / onCorrectGuess / onWrongGuess
     - Use Array.includes
-    - Call from onKeyPress
+    - Call from onKeyDown
     - Implement onCorrectGuess and onWrongGuess stubbed with an alert box
  - Implement correctGuesses / wrongGuesses
     - Define correctGuesses / wrongGuesses global variables.

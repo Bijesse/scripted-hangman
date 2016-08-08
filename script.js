@@ -138,7 +138,7 @@ function drawHangman() {
 
 // ## UI Events ##
 
-function onKeyPress(event) {
+function onKeyDown(event) {
   //Get the key from the event.
   var letter = event.key;
 
@@ -155,5 +155,5 @@ function onKeyPress(event) {
 $(document).ready(function() {
   prepareGame();
   // Add the keypress handler.
-  $(document).keypress(onKeyPress);
+  $(document).keydown(onKeyDown);
 });
