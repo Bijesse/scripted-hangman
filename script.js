@@ -31,7 +31,7 @@ var images = ['Hangman-0.png', 'Hangman-1.png', 'Hangman-2.png',
 // is correct or wrong.  Array.includes() is not supported in IE yet. An
 // alternative would be Array.indexOf().
 function judgeGuess(letter) {
-  if (word.includes(letter)) {
+  if (secretWord.includes(letter)) {
     onCorrectGuess(letter);
   } else {
     onWrongGuess(letter);
